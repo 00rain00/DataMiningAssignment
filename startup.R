@@ -1,3 +1,15 @@
+library(ggplot2)
+library(stringr)
+library(slam)
+library(qdap)
+#text analysis
+Needed <- c("tm", "SnowballCC", "RColorBrewer", "ggplot2", "wordcloud", "biclust", "cluster", "igraph", "fpc")   
+install.packages(Needed, dependencies=TRUE)   
+
+install.packages("Rcampdf", repos = "http://datacube.wu.ac.at/", type = "source")  
+dyn.load('/Library/Java/JavaVirtualMachines/jdk1.8.0_60.jdk/Contents/Home/jre/lib/server/libjvm.dylib')
+require(rJava)
+lapply(Needed, require, character.only = TRUE)
 row_data <- read.csv("movie_metadata.csv",
                      col.names = c("type","director_name","critics","duration","director_factbook_likes","actor3_facebook_likes","actor2_name","actor1_facebook_likes","gross","category","actor1_name","title","votes_count","casts_facebook_likes","actor3_name","facenumber","keyworkds","link","review_count","language","country","content_rating","budget","year","actor2_facebook_likes","score","aspect_ratio","movie_facebook_likes")
 )
@@ -17,7 +29,7 @@ movie_data$language[movie_data$language == ""] <- NA
 movie_data$duration[movie_data$duration == ""] <- NA
 movie_data$year[movie_data$year == ""] <- NA
 movie_data$content_rating[movie_data$content_rating == ""] <- NA
-movie_data$bedget[movie_data$budget == ""] <- NA
+movie_data$budget[movie_data$budget == ""] <- NA
 movie_data$gross[movie_data$gross == ""] <- NA
 movie_data$aspect_ratio[movie_data$aspect_ratio == ""] <- NA
 movie_data$type[movie_data$type == ""] <- NA
@@ -40,3 +52,8 @@ movie_data$casts_facebook_likes[movie_data$casts_facebook_likes == ""] <- NA
 movie_data$movie_facebook_likes[movie_data$movie_facebook_likes == ""] <- NA
 #str_detect
 #table(data$country)
+rmmis <- na.omit(movie_data)
+#remove duplicated title
+movie1.Data <- movie_data[!duplicated(movie_data$title),]
+#calculate how many category
+str_c > str_replace_all > freq_terms
